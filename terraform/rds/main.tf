@@ -13,7 +13,7 @@ resource "aws_security_group" "rds" {
   egress {
     from_port   = 0
     to_port     = 65535
-    protocol    = "0"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -37,6 +37,8 @@ resource "aws_db_instance" "osondoson_pg" {
   username             = var.db_username
   password             = var.db_password
   db_subnet_group_name = aws_db_subnet_group.osondoson_subnet_group.name
+
+  publicly_accessible = true
 
   vpc_security_group_ids = [aws_security_group.rds.id]
 
